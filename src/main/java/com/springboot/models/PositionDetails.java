@@ -1,14 +1,12 @@
 package com.springboot.models;
 
 import java.io.Serializable;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,17 +24,13 @@ import lombok.ToString;
 @Setter
 @ToString
 @EqualsAndHashCode
-public class Position implements Serializable{
+public class PositionDetails implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String latitude;
-	private String longitude;
-	private String addresse;
-	private String description;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="position")
+	@ManyToOne
 	@JsonIgnore
-	private Set<PositionDetails> positionDetail;
-
+	private Position position;
+	private String image;
 }

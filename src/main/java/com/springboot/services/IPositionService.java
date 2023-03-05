@@ -6,9 +6,14 @@ import com.springboot.models.Position;
 
 public interface IPositionService {
 	List<Position> retrieveAllPositions();
-	Position addPosition(Position p);
-	void deletePosition(Integer id);
-	//Position updatePosition(Position c);
 	Position retrievePosition(Integer id);
+	
+	String addPosition(Position p);
+	String updatPosition(Position p);
+	String deletPosition(Integer id);
+	
+	Position retrievePositionByLatAndLong(String latitude, String longitude);
+	
+	
 
 }

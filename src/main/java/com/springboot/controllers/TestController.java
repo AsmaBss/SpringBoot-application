@@ -17,9 +17,9 @@ import com.springboot.services.ITestService;
 
 import io.swagger.annotations.Api;
 
-@RestController
+/*@RestController
 @RequestMapping("/Test")
-@Api(tags = "Test Controller")
+/@Api(tags = "Test Controller")*/
 public class TestController {
 	@Autowired
 	ITestService testService;
