@@ -5,13 +5,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.springboot.models.Images;
 import com.springboot.models.Position;
+import com.springboot.repositories.ImagesRepository;
 import com.springboot.repositories.PositionRepository;
 
 @Service
 public class PositionService implements IPositionService {
 	@Autowired
 	PositionRepository positionRepository;
+	@Autowired
+	ImagesRepository imagesRepository;
 
 	@Override
 	public List<Position> retrieveAllPositions() {
@@ -27,21 +31,36 @@ public class PositionService implements IPositionService {
 	public String addPosition(Position p) {
 		try {
 			positionRepository.save(p);
-			return "Cette position a été sauvegardée";
+			return "Position saved successfully.";
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	@Override
+	public String addPosition(Position p, List<Images> imgs) {
+		try {
+			positionRepository.save(p);
+			for(Images img : imgs) {
+				System.out.println(p.getId());
+				img.setPosition(p);
+				imagesRepository.save(img);
+			}
+			return "Position saved successfully with images.";
 		} catch (Exception e) {
 			throw e;
 		}
 	}
 
 	@Override
-	public String updatPosition(Position p) {
+	public String updatePosition(Position p) {
 		try {
 			Position position = positionRepository.findById(p.getId()).orElse(null);
 			if(position != null) {
 				positionRepository.save(position);
-				return "Cette position a été modifiée";
+				return "Position updated successfully.";
 			}else {
-				return "Cette position n'existe pas";
+				return "There is no data";
 			}
 		} catch (Exception e) {
 			throw e;
@@ -49,22 +68,28 @@ public class PositionService implements IPositionService {
 	}
 
 	@Override
-	public String deletPosition(Integer id) {
+	public String deletePosition(Integer id) {
 		try {
 			if(positionRepository.findById(id).orElse(null) != null) {
-				positionRepository.deleteById(id);
-				return "Cette position a été supprimé";
+				Position p = positionRepository.findById(id).orElse(null);
+				positionRepository.delete(p);
+				return "Position deleted successfully.";
 			}else {
-				return "Cette position n'existe pas";
+				return "There is no data";
 			}
 		} catch (Exception e) {
 			throw e;
 		}
 	}
 
-	@Override
+    @Override
 	public Position retrievePositionByLatAndLong(String latitude, String longitude) {
-		return positionRepository.findByLatitudeAndLongitude(latitude, longitude);
+    	Position p = positionRepository.findByLatitudeAndLongitude(latitude, longitude);
+    	System.out.println(p);
+    	if(p == null) {
+    		return null ;
+    	}
+		return p;
 	}
 
 }

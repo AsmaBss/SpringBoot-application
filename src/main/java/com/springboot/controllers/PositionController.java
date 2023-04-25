@@ -1,7 +1,6 @@
 package com.springboot.controllers;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,15 +10,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.springboot.models.Position;
+import com.springboot.models.PositionWithImages;
 import com.springboot.services.IPositionService;
 
 import io.swagger.annotations.Api;
@@ -43,26 +38,32 @@ public class PositionController {
 	Position retrieveById(@PathVariable Integer id){
 		return positionService.retrievePosition(id);
 	}
-
+ 
 	@PostMapping("/add")
+	@ResponseBody 
+	String addPosition(@RequestBody PositionWithImages posImgs) {
+		return positionService.addPosition(posImgs.getPosition(), posImgs.getImages());
+	}
+	
+	/*@PostMapping("/add")
 	@ResponseBody 
 	String addPosition(@RequestBody Position p) {
 		return positionService.addPosition(p);
-	}
+	}*/
 	
 	@PutMapping("/edit")
 	@ResponseBody 
-	String updatPosition(@RequestBody Position p) {
-		return positionService.updatPosition(p);
+	String updatePosition(@RequestBody Position p) {
+		return positionService.updatePosition(p);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	@ResponseBody 
-	String deletPosition(@PathVariable Integer id) {
-		return positionService.deletPosition(id);
+	String deletePosition(@PathVariable Integer id) {
+		return positionService.deletePosition(id);
 	}
 
-	@GetMapping("/show-by-LatLong/{latitude}/{longitude}")
+	@GetMapping("/show-LatLong/{latitude}/{longitude}")
 	@ResponseBody 
 	Position retrieveByLatAndLong(@PathVariable String latitude, @PathVariable String longitude) { 
 		return positionService.retrievePositionByLatAndLong(latitude, longitude);

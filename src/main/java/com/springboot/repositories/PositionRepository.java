@@ -8,5 +8,4 @@ import com.springboot.models.Position;
 @Repository
 public interface PositionRepository extends CrudRepository<Position, Integer>{
 	Position findByLatitudeAndLongitude(String latitude, String longitude);
-
 }
