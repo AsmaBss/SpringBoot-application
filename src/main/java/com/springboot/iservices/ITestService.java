@@ -1,4 +1,4 @@
-package com.springboot.services;
+package com.springboot.iservices;
 
 import java.util.List;
 import com.springboot.models.Test;

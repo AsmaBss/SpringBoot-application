@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.springboot.iservices.IImagesService;
 import com.springboot.models.Images;
+import com.springboot.models.Prelevement;
 import com.springboot.repositories.ImagesRepository;
 
 @Service
@@ -63,8 +65,8 @@ public class ImagesService implements IImagesService {
 	}
 
 	@Override
-	public List<Images> retriveImageByPositionId(Integer idPosition) {
-		return imagesRepository.findByPositionId(idPosition);
+	public List<Images> retriveByPrelevement(Integer id) {
+		return imagesRepository.findByPrelevementId(id);
 	}
 
 	

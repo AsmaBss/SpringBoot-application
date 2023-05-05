@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import com.springboot.models.Parcelle;
 import com.springboot.services.ParcelleService;
 
 import io.swagger.annotations.Api;
+import io.swagger.models.auth.In;
 
 @RestController
 @RequestMapping("/Parcelle")
@@ -40,10 +42,16 @@ public class ParcelleController {
 		return parcelleService.retrieveParcelle(id);
 	}
 	
-	@GetMapping("/show/file/{file}")
+	@GetMapping("/show/file/{file}") 
 	@ResponseBody
 	public Parcelle retrieveByFile(@PathVariable String file) {
 		return parcelleService.retrieveByFile(file);
+	}
+	
+	@GetMapping("/show/securisation/{id}") 
+	@ResponseBody
+	public Parcelle retrieveBySecurisation(@PathVariable Integer id) {
+		return parcelleService.retrieveBySecurisation(id);
 	}
 	
 	@PostMapping("/add")
@@ -51,6 +59,19 @@ public class ParcelleController {
 		parcelleService.addShapefile(file, fileee, file2, file222);
         return "Shapefile uploaded successfully"; 
     } 
+	
+	@DeleteMapping("/delete/{id}")
+	void deleteParcelle(@PathVariable  Integer id) {
+		parcelleService.deleteParcelle(id);
+	}
+	
+	@GetMapping("/show/coordinates/{id}")
+	@ResponseBody
+	List<String> getCoordinates(@PathVariable Integer id){
+		return parcelleService.getCoordinates(id);
+	}
+	
+	
 	
 
 }

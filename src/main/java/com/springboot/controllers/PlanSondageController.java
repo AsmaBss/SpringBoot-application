@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springboot.iservices.IPlanSondageService;
 import com.springboot.models.PlanSondage;
-import com.springboot.services.IPlanSondageService;
 
 import io.swagger.annotations.Api;
 
@@ -37,8 +37,20 @@ public class PlanSondageController {
 	
 	@GetMapping("/show/parcelle/{id}")
 	@ResponseBody
-	public PlanSondage retrieveByParcelle(@PathVariable Integer id) {
+	public List<PlanSondage> retrieveByParcelle(@PathVariable Integer id) {
 		return planSondageService.retrieveByParcelle(id);
+	}
+	
+	@GetMapping("/show/coordinates")
+	@ResponseBody
+	public List<String> getCoordinates() {
+		return planSondageService.getCoordinates();
+	}
+	
+	@GetMapping("/show/coordinates/{coord}")
+	@ResponseBody
+	public PlanSondage retriveByCoordinates(@PathVariable String coord) {
+		return planSondageService.retriveByCoordinates(coord);
 	}
 
 }

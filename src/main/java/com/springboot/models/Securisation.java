@@ -1,15 +1,16 @@
 package com.springboot.models;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -27,21 +28,23 @@ import lombok.ToString;
 @Setter
 @ToString
 @EqualsAndHashCode
-public class Images implements Serializable{
+public class Securisation implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Lob
-	@Column(columnDefinition = "MEDIUMBLOB")
-	private String image;
-	@ManyToOne//(cascade = CascadeType.ALL)
+	private String nom;
+	private String munitionReference;
+	private int cotePlateforme;
+	private int profondeurASecuriser;
+	private int coteASecuriser;
+	@OneToOne(fetch = FetchType.EAGER) 
 	@JsonIgnore
-	private Prelevement prelevement;
-	/*@ManyToOne
+	private Parcelle parcelle;
+	@OneToMany(mappedBy = "securisation", cascade = CascadeType.REMOVE)//fetch = FetchType.LAZY, 
 	@JsonIgnore
-	private Position position;*/
+	private List<Prelevement> prelevement; 
 
 }

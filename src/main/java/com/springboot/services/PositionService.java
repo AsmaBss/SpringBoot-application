@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.springboot.iservices.IPositionService;
 import com.springboot.models.Images;
 import com.springboot.models.Position;
 import com.springboot.repositories.ImagesRepository;
@@ -41,11 +42,11 @@ public class PositionService implements IPositionService {
 	public String addPosition(Position p, List<Images> imgs) {
 		try {
 			positionRepository.save(p);
-			for(Images img : imgs) {
+			/*for(Images img : imgs) {
 				System.out.println(p.getId());
 				img.setPosition(p);
 				imagesRepository.save(img);
-			}
+			}*/
 			return "Position saved successfully with images.";
 		} catch (Exception e) {
 			throw e;

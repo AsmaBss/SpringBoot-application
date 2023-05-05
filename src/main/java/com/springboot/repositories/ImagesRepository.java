@@ -9,6 +9,7 @@ import com.springboot.models.Images;
 
 @Repository
 public interface ImagesRepository extends CrudRepository<Images, Integer> {
-	List<Images> findByPositionId(Integer idPosition);
+	List<Images> findByPrelevementId(Integer id);
+	//List<Images> findByPositionId(Integer idPosition);
 	//List<Images> findByFormMarkerId(Integer id);
 }

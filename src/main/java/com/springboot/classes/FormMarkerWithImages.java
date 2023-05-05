@@ -1,6 +1,9 @@
-package com.springboot.models;
+package com.springboot.classes;
 
 import java.util.List;
+
+import com.springboot.models.FormMarker;
+import com.springboot.models.Images;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.springboot.classes.PositionWithImages;
+import com.springboot.iservices.IPositionService;
 import com.springboot.models.Position;
-import com.springboot.models.PositionWithImages;
-import com.springboot.services.IPositionService;
 
 import io.swagger.annotations.Api;
 

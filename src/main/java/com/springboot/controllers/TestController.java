@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springboot.iservices.ITestService;
 import com.springboot.models.Test;
-import com.springboot.services.ITestService;
 
 import io.swagger.annotations.Api;
 

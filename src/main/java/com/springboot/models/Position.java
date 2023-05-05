@@ -37,8 +37,8 @@ public class Position implements Serializable{
 	private String longitude;
 	private String address;
 	private String description; 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="position")
+	/*@OneToMany(cascade = CascadeType.ALL, mappedBy="position")
 	@JsonIgnore
-	private Set<Images> images ;
+	private Set<Images> images ;*/
 
 }

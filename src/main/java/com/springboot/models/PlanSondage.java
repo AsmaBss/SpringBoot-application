@@ -5,9 +5,11 @@ import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import org.locationtech.jts.geom.Geometry;
@@ -44,9 +46,15 @@ public class PlanSondage implements Serializable{
 	@Column(name = "geometry", columnDefinition = "geometry")
 	@JsonDeserialize(using = GeometryDeserializer.class)
 	@JsonSerialize(using = GeometrySerializer.class)
-	private Geometry geometry;
+	private Geometry geometry; 
 
-	@OneToOne(cascade = CascadeType.ALL)
+	//@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Parcelle parcelle;
+	
+	@OneToOne(mappedBy = "planSondage")//, cascade = CascadeType.ALL)// , fetch = FetchType.EAGER na7itha
+	@JsonIgnore
+	private Prelevement prelevement;
+
 }

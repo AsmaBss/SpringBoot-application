@@ -22,11 +22,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.springboot.classes.FormMarkerWithImages;
+import com.springboot.iservices.IFormMarkerService;
+import com.springboot.iservices.IImagesService;
 import com.springboot.models.FormMarker;
-import com.springboot.models.FormMarkerWithImages;
 import com.springboot.models.Images;
-import com.springboot.services.IFormMarkerService;
-import com.springboot.services.IImagesService;
 
 import io.swagger.annotations.Api;
 

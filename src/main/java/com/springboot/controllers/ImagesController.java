@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springboot.iservices.IImagesService;
 import com.springboot.models.Images;
-import com.springboot.services.IImagesService;
+import com.springboot.models.Passe;
+import com.springboot.models.Prelevement;
 
 import io.swagger.annotations.Api;
 
@@ -58,10 +60,10 @@ public class ImagesController {
 		return imagesService.deleteImage(id);
 	}
 	
-	@GetMapping("/position/{idPosition}")
+	@GetMapping("/show/prelevement/{id}")
 	@ResponseBody
-	List<Images> retriveImageByPosition(@PathVariable Integer idPosition){
-		return imagesService.retriveImageByPositionId(idPosition);
+	public List<Images> retrieveByPrelevement(@PathVariable Integer id) {
+		return imagesService.retriveByPrelevement(id);
 	}
 	
 	/*@PostMapping(value = "/add", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

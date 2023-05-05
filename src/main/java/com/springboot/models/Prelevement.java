@@ -4,22 +4,16 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import org.locationtech.jts.geom.Geometry;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.springboot.config.GeometryDeserializer;
-import com.springboot.config.GeometrySerializer;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -35,28 +29,31 @@ import lombok.ToString;
 @Setter
 @ToString
 @EqualsAndHashCode
-public class Parcelle implements Serializable{
+public class Prelevement implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String file;
-	private String type;
-	@Column(name = "geometry", columnDefinition = "geometry")
-	@JsonDeserialize(using = GeometryDeserializer.class)
-	@JsonSerialize(using = GeometrySerializer.class)
-	private Geometry geometry; 
-	
-	//@OneToOne(mappedBy = "parcelle", cascade = CascadeType.ALL)
-	@OneToMany(mappedBy = "parcelle", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private int numero;
+	private String munitionReference;
+	private int cotePlateforme;
+	private int profondeurASecuriser;
+	private int coteASecuriser;
+	@OneToMany(mappedBy = "prelevement", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	@JsonIgnore
-	private List<PlanSondage> planSondage;  
-	
-	@OneToOne(mappedBy = "parcelle")//, cascade = CascadeType.ALL
+	private List<Images> images;
+	@OneToOne(fetch = FetchType.EAGER)
+	@JsonIgnore
+	private PlanSondage planSondage;
+	private String remarques;
+	@OneToMany(mappedBy = "prelevement", cascade = CascadeType.REMOVE)
+	@JsonIgnore
+	private List<Passe> passe; 
+	private String statut;
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Securisation securisation;
-	
 
 }
