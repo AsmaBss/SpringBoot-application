@@ -37,20 +37,20 @@ public class SecurisationService implements ISecurisationService{
 	}
 	
 	@Override
-	public Securisation updateSecurisation(Securisation securisation, Integer id) {
+	public void updateSecurisation(Securisation securisation, Integer id) {
 		Securisation s = securisationRepository.findById(id).orElse(null);
 		s.setNom(securisation.getNom());
 		s.setMunitionReference(securisation.getMunitionReference());
 		s.setCotePlateforme(securisation.getCotePlateforme());
 		s.setCoteASecuriser(securisation.getCoteASecuriser());
 		s.setProfondeurASecuriser(securisation.getProfondeurASecuriser());
-		return securisationRepository.save(s);
+		// à vérifier la modification de parcelle
+		securisationRepository.save(s);
 	}
 
 	@Override
 	public void deleteSecurisation(Integer id) {
 		securisationRepository.deleteById(id);
-		
 	}
 
 	

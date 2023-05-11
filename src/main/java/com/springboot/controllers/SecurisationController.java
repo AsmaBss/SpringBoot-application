@@ -51,9 +51,8 @@ public class SecurisationController {
 	}
 	
 	@PutMapping("/update/{id}")
-	@ResponseBody
-	Securisation updateSecurisation(@RequestBody Securisation securisation, @PathVariable Integer id) {
-		return securisationService.updateSecurisation(securisation, id);
+	void updateSecurisation(@RequestBody Securisation securisation, @PathVariable Integer id) {
+		securisationService.updateSecurisation(securisation, id);
 	}
 
 }

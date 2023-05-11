@@ -63,12 +63,26 @@ public class ParcelleService implements IParcelleService{
 
 	@Override
 	public Parcelle retrieveBySecurisation(Integer id) {
-		System.out.println("test " + id);
 		Parcelle p = parcelleRepository.findBySecurisationId(id);
-		System.out.println("id " + p.getId());
 		return p;
 	}
 	
+	@Override
+	public void deleteParcelle(Integer id) {
+		parcelleRepository.deleteById(id);
+	}
+
+	@Override
+	public List<String> getCoordinates(Integer id) {
+		Parcelle parcelle = parcelleRepository.findById(id).orElse(null);
+		List<String> coordinates = new ArrayList<>();
+		Coordinate[] coords = parcelle.getGeometry().getCoordinates();
+		for(Coordinate c : coords) {
+			coordinates.add(c.toString());
+		}
+		return coordinates;
+	}
+
 	@Override
 	public void addShapefile(MultipartFile file, MultipartFile fileee, MultipartFile file2, MultipartFile file222) throws Exception {
 		//save file and file2
@@ -105,66 +119,42 @@ public class ParcelleService implements IParcelleService{
         FileDataStore dataStore = FileDataStoreFinder.getDataStore(newFile);
         SimpleFeatureSource featureSource = dataStore.getFeatureSource();
         SimpleFeatureCollection featureCollection = featureSource.getFeatures();
-        Parcelle p = new Parcelle();
+    	Parcelle p = new Parcelle();
         try (FeatureIterator<SimpleFeature> features = featureCollection.features()) {
             while (features.hasNext()) {
                 SimpleFeature feature = features.next();
                 Geometry geometry = (Geometry) feature.getDefaultGeometry();
                 if(geometry instanceof MultiPolygon) {
-                	p.setFile(newFile.getName());
+                	p.setFile(feature.getName().toString());
                 	p.setType(geometry.getGeometryType());
                 	p.setGeometry(geometry);
                 }
             }
         }
         dataStore.dispose();
-        System.out.println("Parcelle => "+ p); 
         //
         FileDataStore dataStore2 = FileDataStoreFinder.getDataStore(newFile2);
         SimpleFeatureSource featureSource2 = dataStore2.getFeatureSource();
         SimpleFeatureCollection featureCollection2 = featureSource2.getFeatures();
-        List<Geometry> points = new ArrayList<>();
+        List<PlanSondage> planSondages = new ArrayList<>();
         try (FeatureIterator<SimpleFeature> features = featureCollection2.features()) {
             while (features.hasNext()) {
                 SimpleFeature feature = features.next();
                 Geometry geometry = (Geometry) feature.getDefaultGeometry();
                 if(geometry instanceof Point) {
-                	points.add(geometry);
+                	PlanSondage planSondage = new PlanSondage();
+                    planSondage.setFile(feature.getName().toString());
+                    planSondage.setType(geometry.getGeometryType());
+                    planSondage.setGeometry(geometry); 
+                    planSondage.setBaseRef(Integer.parseInt(feature.getIdentifier().getID().substring(feature.getIdentifier().getID().lastIndexOf('.')+1)));
+                    planSondage.setParcelle(p);
+                    planSondages.add(planSondage);
                 } 
             } 
         }
-        System.out.println("Points => "+points);
-        List<PlanSondage> planSondages = new ArrayList<>();
-        for (Geometry point : points) {
-            PlanSondage planSondage = new PlanSondage();
-            planSondage.setFile(fileName2);
-            planSondage.setType("Point");
-            planSondage.setGeometry(point);
-            planSondage.setParcelle(p);
-            planSondages.add(planSondage);
-        }
-        System.out.println("PlanSondages => "+ planSondages);
         p.setPlanSondage(planSondages);
         parcelleRepository.save(p);
         dataStore2.dispose(); 
     }
-
-	@Override
-	public void deleteParcelle(Integer id) {
-		parcelleRepository.deleteById(id);
-	}
-
-	@Override
-	public List<String> getCoordinates(Integer id) {
-		Parcelle parcelle = parcelleRepository.findById(id).orElse(null);
-		List<String> coordinates = new ArrayList<>();
-		Coordinate[] coords = parcelle.getGeometry().getCoordinates();
-		for(Coordinate c : coords) {
-			coordinates.add(c.toString());
-		}
-		return coordinates;
-	}
-
-
 
 }

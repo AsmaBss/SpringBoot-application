@@ -12,6 +12,7 @@ import com.springboot.models.Securisation;
 
 public interface IPrelevementService {
 	public Prelevement retrieveByPlanSondage(String coord);
+	public Prelevement retrieveByPlanSondageId(Integer id);
 	public String addPrelevementWithPassesAdImages(Prelevement prelevement, List<Passe> passes, List<Images> images, PlanSondage plansondage, Securisation securisation);
 	public String updatePrelevementWithPassesAdImages(Prelevement prelevement, List<Passe> passes, List<Images> images);
 	public void deletePrelevement(Integer id);

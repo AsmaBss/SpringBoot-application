@@ -52,5 +52,11 @@ public class PlanSondageController {
 	public PlanSondage retriveByCoordinates(@PathVariable String coord) {
 		return planSondageService.retriveByCoordinates(coord);
 	}
+	
+	@GetMapping("/show/nbr/{id}")
+	@ResponseBody
+	int nbrPlanSondage(@PathVariable Integer id) {
+		return planSondageService.nbrPlanSondage(id);
+	}
 
 }

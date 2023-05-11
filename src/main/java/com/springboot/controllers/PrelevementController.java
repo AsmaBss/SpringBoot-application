@@ -36,6 +36,12 @@ public class PrelevementController {
 		return prelevementService.retrieveByPlanSondage(coord);
 	}
 	
+	@GetMapping("/show/sondage/{id}")
+	@ResponseBody
+	Prelevement retrieveByPlanSondageId(@PathVariable Integer id) {
+		return prelevementService.retrieveByPlanSondageId(id);
+	}
+	
 	@PostMapping("/add")
 	@ResponseBody
 	String add(@RequestBody PrelevementWithPasseAndImages prelevementWithPasseAndImages){
@@ -48,15 +54,16 @@ public class PrelevementController {
 		return prelevementService.updatePrelevementWithPassesAdImages(prelevementWithPasseAndImages.getPrelevement(), prelevementWithPasseAndImages.getPasses(), prelevementWithPasseAndImages.getImages());
 	}
 	
+	@DeleteMapping("/delete/{id}")
+	@ResponseBody
+	void deletePrelevement(@PathVariable Integer id) {
+		prelevementService.deletePrelevement(id);
+	}
+	
 	@GetMapping("/count/{id}")
 	@ResponseBody
 	public int nbrBySecurisation(@PathVariable Integer id) {
 		return prelevementService.nbrBySecurisation(id);
 	}
 	
-	@DeleteMapping("/delete/{id}")
-	@ResponseBody
-	void deletePrelevement(@PathVariable Integer id) {
-		prelevementService.deletePrelevement(id);
-	}
 }

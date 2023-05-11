@@ -20,4 +20,9 @@ public class PasseService implements IPasseService{
 		return passeRepository.findByPrelevementId(id);
 	}
 
+	@Override
+	public void deletePasse(Integer id) {
+		passeRepository.deleteById(id);
+	}
+
 }

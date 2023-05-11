@@ -40,7 +40,7 @@ public class PlanSondageService implements IPlanSondageService{
 			Coordinate[] coords  = ps.getGeometry().getCoordinates();
 			for(Coordinate c : coords) {
 				if(c.toString().equals(coord)) {
-					// (7.568753332730966, 48.279816662887185)
+					// (7.568753332730966, 48.279816662887185) 
 					return ps;
 				}
 			}
@@ -59,6 +59,11 @@ public class PlanSondageService implements IPlanSondageService{
 			}
 		}
 		return coordinates;
+	}
+
+	@Override
+	public int nbrPlanSondage(Integer id) {
+		return planSondageRepository.countByParcelleId(id);
 	}
 
 	

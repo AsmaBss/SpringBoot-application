@@ -54,16 +54,21 @@ public class ImagesController {
 		return imagesService.updateImage(i);
 	}
 	
-	@DeleteMapping("/delete/{id}")
+	/*@DeleteMapping("/delete/{id}")
 	@ResponseBody 
 	String deleteImage(@PathVariable Integer id) {
 		return imagesService.deleteImage(id);
-	}
+	}*/
 	
 	@GetMapping("/show/prelevement/{id}")
 	@ResponseBody
-	public List<Images> retrieveByPrelevement(@PathVariable Integer id) {
+	List<Images> retrieveByPrelevement(@PathVariable Integer id) {
 		return imagesService.retriveByPrelevement(id);
+	}
+	
+	@DeleteMapping("/delete/{id}")
+	void deleteImage(@PathVariable Integer id) {
+		imagesService.deleteImage(id);
 	}
 	
 	/*@PostMapping(value = "/add", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

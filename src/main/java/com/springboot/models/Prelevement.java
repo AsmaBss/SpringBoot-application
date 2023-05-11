@@ -41,17 +41,21 @@ public class Prelevement implements Serializable{
 	private int cotePlateforme;
 	private int profondeurASecuriser;
 	private int coteASecuriser;
+	private String remarques;
+	private String statut;
+	
 	@OneToMany(mappedBy = "prelevement", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	@JsonIgnore
 	private List<Images> images;
+	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JsonIgnore
 	private PlanSondage planSondage;
-	private String remarques;
+	
 	@OneToMany(mappedBy = "prelevement", cascade = CascadeType.REMOVE)
 	@JsonIgnore
 	private List<Passe> passe; 
-	private String statut;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Securisation securisation;

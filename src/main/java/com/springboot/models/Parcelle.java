@@ -57,6 +57,5 @@ public class Parcelle implements Serializable{
 	@OneToOne(mappedBy = "parcelle")//, cascade = CascadeType.ALL
 	@JsonIgnore
 	private Securisation securisation;
-	
 
 }

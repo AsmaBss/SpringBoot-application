@@ -40,9 +40,11 @@ public class Securisation implements Serializable{
 	private int cotePlateforme;
 	private int profondeurASecuriser;
 	private int coteASecuriser;
+	
 	@OneToOne(fetch = FetchType.EAGER) 
 	@JsonIgnore
 	private Parcelle parcelle;
+	
 	@OneToMany(mappedBy = "securisation", cascade = CascadeType.REMOVE)//fetch = FetchType.LAZY, 
 	@JsonIgnore
 	private List<Prelevement> prelevement; 

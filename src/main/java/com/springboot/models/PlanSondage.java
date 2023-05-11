@@ -43,6 +43,7 @@ public class PlanSondage implements Serializable{
 	private Integer id;
 	private String file;
 	private String type;
+	private Integer baseRef;
 	@Column(name = "geometry", columnDefinition = "geometry")
 	@JsonDeserialize(using = GeometryDeserializer.class)
 	@JsonSerialize(using = GeometrySerializer.class)

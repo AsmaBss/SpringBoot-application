@@ -52,6 +52,12 @@ public class PrelevementService implements IPrelevementService{
 	}
 	
 	@Override
+	public Prelevement retrieveByPlanSondageId(Integer id) {
+		Prelevement p = prelevementRepository.findByPlanSondageId(id);
+		return p;
+	}
+	
+	@Override
 	public String addPrelevementWithPassesAdImages(Prelevement prelevement, List<Passe> passes, List<Images> images, PlanSondage plansondage, Securisation securisation) {
 		try {
 			prelevement.setPlanSondage(plansondage);

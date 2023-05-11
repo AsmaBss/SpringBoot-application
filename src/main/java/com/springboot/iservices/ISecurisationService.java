@@ -11,7 +11,7 @@ public interface ISecurisationService {
 	public Securisation retrieveSecurisation(Integer id);
 	
 	public Securisation addSecurisation(Securisation s, Parcelle parcelle);
-	public Securisation updateSecurisation(Securisation securisation, Integer id);
+	public void updateSecurisation(Securisation securisation, Integer id);
 	public void deleteSecurisation(Integer id);
 
 }

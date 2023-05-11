@@ -12,7 +12,7 @@ public interface IImagesService {
 	
 	String addImage(Images i);
 	String updateImage(Images i);
-	String deleteImage(Integer id);
+	void deleteImage(Integer id);
 
 	//String addImage(Images img, FormMarker fm);
 	//List<Images> retrieveByFormMarkerId(Integer id);

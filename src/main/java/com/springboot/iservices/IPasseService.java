@@ -7,5 +7,7 @@ import com.springboot.models.Prelevement;
 
 public interface IPasseService {
 	List<Passe> retrieveByPrelevement(Integer id);
+	
+	void deletePasse(Integer id);
 
 }

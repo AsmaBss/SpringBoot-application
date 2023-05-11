@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,11 @@ public class PasseController {
 	@ResponseBody
 	public List<Passe> retrieveByPrelevement(@PathVariable Integer id) {
 		return passeService.retrieveByPrelevement(id);
+	}
+	
+	@DeleteMapping("/delete/{id}")
+	public void deletePasse(@PathVariable Integer id) {
+		passeService.deletePasse(id);
 	}
 
 }

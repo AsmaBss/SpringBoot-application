@@ -51,6 +51,11 @@ public class ImagesService implements IImagesService {
 	}
 	
 	@Override
+	public void deleteImage(Integer id) {
+		imagesRepository.deleteById(id);
+	}
+	
+	/*@Override
 	public String deleteImage(Integer id) {
 		try {
 			if (imagesRepository.findById(id).orElse(null) != null) {
@@ -62,7 +67,7 @@ public class ImagesService implements IImagesService {
 		} catch (Exception e) {
 			throw e;
 		}
-	}
+	}*/
 
 	@Override
 	public List<Images> retriveByPrelevement(Integer id) {

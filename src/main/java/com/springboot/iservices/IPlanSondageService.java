@@ -10,4 +10,5 @@ public interface IPlanSondageService {
 	public List<PlanSondage> retrieveByParcelle(Integer id);
 	public PlanSondage retriveByCoordinates(String coord);
 	public List<String> getCoordinates();
+	public int nbrPlanSondage(Integer id);
 }
