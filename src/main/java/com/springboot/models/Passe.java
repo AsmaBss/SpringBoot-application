@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,7 +35,8 @@ public class Passe implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String munitionReference;
+	@Enumerated(EnumType.STRING)
+	private MunitionReference munitionReference; 
 	private int profondeurSonde;
 	private int gradientMag;
 	private int profondeurSecurisee;

@@ -8,6 +8,6 @@ import com.springboot.models.Securisation;
 
 @Repository
 public interface ParcelleRepository extends CrudRepository<Parcelle, Integer>{
-	Parcelle findByFile(String file);
+	Parcelle findByNom(String file);
 	Parcelle findBySecurisationId(Integer id);
 }

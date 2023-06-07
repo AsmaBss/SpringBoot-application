@@ -2,7 +2,7 @@ package com.springboot.classes;
 
 import java.util.List;
 
-import com.springboot.models.Images;
+import com.springboot.models.ImagesPrelevements;
 import com.springboot.models.Passe;
 import com.springboot.models.PlanSondage;
 import com.springboot.models.Prelevement;
@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class PrelevementWithPasseAndImages {
 	private Prelevement prelevement;
 	private List<Passe> passes;
-	private List<Images> images;
+	private List<ImagesPrelevements> images;
 	private PlanSondage planSondage;
 	private Securisation securisation;
 

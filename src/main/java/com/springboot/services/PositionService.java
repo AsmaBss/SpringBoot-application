@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.springboot.iservices.IPositionService;
-import com.springboot.models.Images;
+import com.springboot.models.ImagesPrelevements;
 import com.springboot.models.Position;
 import com.springboot.repositories.ImagesRepository;
 import com.springboot.repositories.PositionRepository;
@@ -39,7 +39,7 @@ public class PositionService implements IPositionService {
 	}
 	
 	@Override
-	public String addPosition(Position p, List<Images> imgs) {
+	public String addPosition(Position p, List<ImagesPrelevements> imgs) {
 		try {
 			positionRepository.save(p);
 			/*for(Images img : imgs) {

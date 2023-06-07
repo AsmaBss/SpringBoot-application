@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -34,19 +36,21 @@ public class Prelevement implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	private Integer id;
 	private int numero;
-	private String munitionReference;
+	@Enumerated(EnumType.STRING)
+	private MunitionReference munitionReference;
 	private int cotePlateforme;
 	private int profondeurASecuriser;
 	private int coteASecuriser;
 	private String remarques;
-	private String statut;
+	@Enumerated(EnumType.STRING)
+	private Statut statut;
 	
 	@OneToMany(mappedBy = "prelevement", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	@JsonIgnore
-	private List<Images> images;
+	private List<ImagesPrelevements> images;
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JsonIgnore

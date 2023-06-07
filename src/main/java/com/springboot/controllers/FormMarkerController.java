@@ -26,7 +26,7 @@ import com.springboot.classes.FormMarkerWithImages;
 import com.springboot.iservices.IFormMarkerService;
 import com.springboot.iservices.IImagesService;
 import com.springboot.models.FormMarker;
-import com.springboot.models.Images;
+import com.springboot.models.ImagesPrelevements;
 
 import io.swagger.annotations.Api;
 

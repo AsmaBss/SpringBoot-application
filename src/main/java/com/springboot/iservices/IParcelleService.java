@@ -1,5 +1,6 @@
 package com.springboot.iservices;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -11,7 +12,8 @@ public interface IParcelleService {
 	public Parcelle retrieveParcelle(Integer id);
 	public Parcelle retrieveByFile(String file);
 	public Parcelle retrieveBySecurisation(Integer id);
-	public void addShapefile(MultipartFile file, MultipartFile fileee, MultipartFile file2, MultipartFile file222) throws Exception;
+	public void addParcelle(MultipartFile shpFile, MultipartFile shxFile, MultipartFile dbfFile, MultipartFile prjFile) throws Exception;
+	//public void addShapefile(MultipartFile file, MultipartFile fileee, MultipartFile file2, MultipartFile file222) throws Exception;
 	public void deleteParcelle(Integer id);
 	public List<String> getCoordinates(Integer id);
 

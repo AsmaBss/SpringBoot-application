@@ -38,24 +38,32 @@ import lombok.ToString;
 public class Parcelle implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-	
+	 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String file;
+	private String nom;
+	private String fichierShp;
+	private String fichierShx;
+	private String fichierDbf;
+	private String fichierPrj;
 	private String type;
 	@Column(name = "geometry", columnDefinition = "geometry")
 	@JsonDeserialize(using = GeometryDeserializer.class)
-	@JsonSerialize(using = GeometrySerializer.class)
+	@JsonSerialize(using = GeometrySerializer.class) 
 	private Geometry geometry; 
 	
 	//@OneToOne(mappedBy = "parcelle", cascade = CascadeType.ALL)
-	@OneToMany(mappedBy = "parcelle", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "parcelle",fetch = FetchType.EAGER)
 	@JsonIgnore
 	private List<PlanSondage> planSondage;  
 	
 	@OneToOne(mappedBy = "parcelle")//, cascade = CascadeType.ALL
 	@JsonIgnore
 	private Securisation securisation;
+	
+	@OneToMany(mappedBy = "parcelle", cascade = CascadeType.ALL) 
+	@JsonIgnore
+	private List<Observation> observations;
 
 }

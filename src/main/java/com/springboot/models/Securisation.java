@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -36,11 +38,12 @@ public class Securisation implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nom;
-	private String munitionReference;
+	@Enumerated(EnumType.STRING)
+	private MunitionReference munitionReference;
 	private int cotePlateforme;
 	private int profondeurASecuriser;
 	private int coteASecuriser;
-	
+	 
 	@OneToOne(fetch = FetchType.EAGER) 
 	@JsonIgnore
 	private Parcelle parcelle;

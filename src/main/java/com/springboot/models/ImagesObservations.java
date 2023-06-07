@@ -1,17 +1,20 @@
 package com.springboot.models;
 
-import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+
+import org.locationtech.jts.geom.Geometry;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.springboot.config.GeometryDeserializer;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -20,27 +23,22 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-/*@Entity
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode*/
-public class FormMarker {//implements Serializable{
-	
-	/*private static final long serialVersionUID = 1L;
-	 
+@EqualsAndHashCode
+public class ImagesObservations {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String numero;
-	private String description; 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="formMarker")
-	@JsonIgnore
-	private Set<Images> images ;
+	@Lob
+	@Column(columnDefinition = "MEDIUMBLOB")
+	private String image;
 	@ManyToOne
 	@JsonIgnore
-	private Position position;*/
-	
+	private Observation observation;
 }

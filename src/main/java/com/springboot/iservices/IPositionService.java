@@ -2,7 +2,7 @@ package com.springboot.iservices;
 
 import java.util.List;
 
-import com.springboot.models.Images;
+import com.springboot.models.ImagesPrelevements;
 import com.springboot.models.Position;
 
 public interface IPositionService {
@@ -10,7 +10,7 @@ public interface IPositionService {
 	Position retrievePosition(Integer id);
 	
 	String addPosition(Position p);
-	String addPosition(Position p, List<Images> imgs);
+	String addPosition(Position p, List<ImagesPrelevements> imgs);
 	String updatePosition(Position p);
 	String deletePosition(Integer id);
 	

@@ -3,7 +3,7 @@ package com.springboot.classes;
 import java.util.List;
 
 import com.springboot.models.FormMarker;
-import com.springboot.models.Images;
+import com.springboot.models.ImagesPrelevements;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,6 +14,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class FormMarkerWithImages {
 	private FormMarker formMarker;
-	private List<Images> images;
+	private List<ImagesPrelevements> images;
 
 }

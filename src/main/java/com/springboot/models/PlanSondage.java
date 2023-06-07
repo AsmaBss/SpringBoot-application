@@ -41,7 +41,11 @@ public class PlanSondage implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String file;
+	private String nom;
+	private String fichierShp;
+	private String fichierShx;
+	private String fichierDbf;
+	private String fichierPrj;
 	private String type;
 	private Integer baseRef;
 	@Column(name = "geometry", columnDefinition = "geometry")
@@ -50,7 +54,7 @@ public class PlanSondage implements Serializable{
 	private Geometry geometry; 
 
 	//@OneToOne(cascade = CascadeType.ALL)
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Parcelle parcelle;
 	

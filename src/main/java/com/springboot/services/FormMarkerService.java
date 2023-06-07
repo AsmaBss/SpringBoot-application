@@ -8,7 +8,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.springboot.models.FormMarker;
-import com.springboot.models.Images;
+import com.springboot.models.ImagesPrelevements;
 import com.springboot.models.Position;
 import com.springboot.repositories.ImagesRepository;
 import com.springboot.repositories.PositionRepository;

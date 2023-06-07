@@ -3,6 +3,8 @@ package com.springboot.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,18 +25,21 @@ import io.swagger.annotations.Api;
 @RestController
 @RequestMapping("/Securisation")
 @Api(tags = "Securisation Controller")
+@CrossOrigin(origins = "*")
 public class SecurisationController {
 	@Autowired 
 	ISecurisationService securisationService;
 	
 	@GetMapping("/show")
 	@ResponseBody 
+	@Transactional(timeout = 120)
 	List<Securisation> retrieveAllSecurisations(){
 		return securisationService.retrieveAllSecurisations();
 	}
 	
 	@GetMapping("/show/{id}")
 	@ResponseBody 
+	@Transactional(timeout = 120)
 	Securisation retrieveSecurisation(@PathVariable Integer id) {
 		return securisationService.retrieveSecurisation(id);
 	}

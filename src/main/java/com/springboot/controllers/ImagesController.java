@@ -2,23 +2,27 @@ package com.springboot.controllers;
 
 import java.util.List;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.springboot.iservices.IImagesService;
-import com.springboot.models.Images;
-import com.springboot.models.Passe;
-import com.springboot.models.Prelevement;
+import com.springboot.models.ImagesPrelevements;
 
 import io.swagger.annotations.Api;
 
@@ -27,43 +31,20 @@ import io.swagger.annotations.Api;
 @Api(tags = "Images Controller")
 @CrossOrigin(origins = "*")
 public class ImagesController {
+	
 	@Autowired
 	IImagesService imagesService;
 	
-	@GetMapping("/show")
-	@ResponseBody
-	List<Images> retrieveAll(){
-		return imagesService.retrieveAllImages();
-	}
-	
-	@GetMapping("/show/{id}")
-	@ResponseBody
-	Images retrieveImageById(@PathVariable Integer id) {
-		return imagesService.retrieveImageById(id);
-	}
-	
-	@PostMapping(value ="/add")//, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	@ResponseBody 
-	String addImage(@RequestBody Images i) {
-		return imagesService.addImage(i);
-	}
-	
-	@PutMapping("/edit")
-	@ResponseBody 
-	String updateImage(@RequestBody Images i) {
-		return imagesService.updateImage(i);
-	}
-	
-	/*@DeleteMapping("/delete/{id}")
-	@ResponseBody 
-	String deleteImage(@PathVariable Integer id) {
-		return imagesService.deleteImage(id);
-	}*/
-	
 	@GetMapping("/show/prelevement/{id}")
 	@ResponseBody
-	List<Images> retrieveByPrelevement(@PathVariable Integer id) {
-		return imagesService.retriveByPrelevement(id);
+	@Transactional(timeout = 120)
+	List<ImagesPrelevements> retrieveImageByPrelevement(@PathVariable Integer id) {
+		return imagesService.retrieveImageByPrelevement(id);
+	}
+	
+	@PostMapping("/add/{id}")
+	void addImage(@RequestBody ImagesPrelevements i, @PathVariable Integer id) {
+		imagesService.addImage(i, id);
 	}
 	
 	@DeleteMapping("/delete/{id}")
@@ -71,16 +52,4 @@ public class ImagesController {
 		imagesService.deleteImage(id);
 	}
 	
-	/*@PostMapping(value = "/add", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	@ResponseBody
-	String addImage(@RequestBody Images img, FormMarker fm) {
-		return imagesService.addImage(img, fm);
-	}*/
-	
-	/*@GetMapping("/{id}")
-	@ResponseBody
-	List<Images> retrieveByFormMarkerId(@PathVariable Integer id){
-		return imagesService.retrieveByFormMarkerId(id);
-	}
-	*/
 }

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.springboot.iservices.IPrelevementService;
-import com.springboot.models.Images;
+import com.springboot.models.ImagesPrelevements;
 import com.springboot.models.Passe;
 import com.springboot.models.PlanSondage;
 import com.springboot.models.Prelevement;
@@ -29,6 +29,11 @@ public class PrelevementService implements IPrelevementService{
 	ImagesRepository imagesRepository;
 	@Autowired 
 	PlanSondageRepository planSondageRepository;
+	
+	@Override
+	public List<Prelevement> retrieveBySecurisation(Integer id) {
+		return prelevementRepository.findBySecurisationId(id);
+	}
 	
 	@Override
 	public Prelevement retrieveByPlanSondage(String coord) {
@@ -58,12 +63,12 @@ public class PrelevementService implements IPrelevementService{
 	}
 	
 	@Override
-	public String addPrelevementWithPassesAdImages(Prelevement prelevement, List<Passe> passes, List<Images> images, PlanSondage plansondage, Securisation securisation) {
+	public String addPrelevementWithPassesAdImages(Prelevement prelevement, List<Passe> passes, List<ImagesPrelevements> images, PlanSondage plansondage, Securisation securisation) {
 		try {
 			prelevement.setPlanSondage(plansondage);
 			prelevement.setSecurisation(securisation);
 			Prelevement p = prelevementRepository.save(prelevement); 
-			for(Images img : images) {
+			for(ImagesPrelevements img : images) {
 				img.setPrelevement(prelevement);
 				imagesRepository.save(img);
 			}
@@ -78,7 +83,7 @@ public class PrelevementService implements IPrelevementService{
 	}
 	
 	@Override
-	public String updatePrelevementWithPassesAdImages(Prelevement prelevement, List<Passe> passes, List<Images> images) {
+	public String updatePrelevementWithPassesAdImages(Prelevement prelevement, List<ImagesPrelevements> images, List<Passe> passes) {
 		try {
 			Prelevement p = prelevementRepository.findById(prelevement.getId()).orElse(null); 
 			p.setNumero(prelevement.getNumero());
@@ -88,11 +93,16 @@ public class PrelevementService implements IPrelevementService{
 			p.setProfondeurASecuriser(prelevement.getProfondeurASecuriser());
 			p.setRemarques(prelevement.getRemarques());
 			p.setStatut(prelevement.getStatut());
-			p.setPasse(passes);
-			p.setImages(images);
-			System.out.println("updated ===> " + p);
 			prelevementRepository.save(p);
-		} catch (Exception e) {
+			for(ImagesPrelevements img : images) {
+				img.setPrelevement(prelevement);
+				imagesRepository.save(img);
+			}
+			for(Passe passe : passes) {
+				passe.setPrelevement(prelevement); 
+				passeRepository.save(passe);
+			}
+		} catch (Exception e) { 
 			throw e;
 		}
 		return null;
@@ -107,5 +117,6 @@ public class PrelevementService implements IPrelevementService{
 	public int nbrBySecurisation(Integer securisation) {
 		return prelevementRepository.countBySecurisationId(securisation);
 	}
+
 
 }

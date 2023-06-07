@@ -55,13 +55,18 @@ public class ParcelleController {
 	}
 	
 	@PostMapping("/add")
+	public void addParcelle(@RequestParam("shpFile") MultipartFile shpFile, @RequestParam("shxFile") MultipartFile shxFile, @RequestParam("dbfFile") MultipartFile dbfFile, @RequestParam("prjFile") MultipartFile prjFile) throws Exception{
+		parcelleService.addParcelle(shpFile, shxFile, dbfFile, prjFile);
+	}
+	
+	/*@PostMapping("/add")
     public String uploadShapefile(@RequestParam("file") MultipartFile file, @RequestParam("fileee") MultipartFile fileee,@RequestParam("file2") MultipartFile file2, @RequestParam("file222") MultipartFile file222) throws Exception {
 		parcelleService.addShapefile(file, fileee, file2, file222);
         return "Shapefile uploaded successfully"; 
-    } 
+    } */
 	
 	@DeleteMapping("/delete/{id}")
-	void deleteParcelle(@PathVariable  Integer id) {
+	void deleteParcelle(@PathVariable Integer id) {
 		parcelleService.deleteParcelle(id);
 	}
 	
