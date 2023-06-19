@@ -8,14 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-
-import org.locationtech.jts.geom.Geometry;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.springboot.config.GeometryDeserializer;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -31,15 +23,13 @@ import lombok.ToString;
 @Setter
 @ToString
 @EqualsAndHashCode
-public class ImagesObservations implements Serializable{
-
+public class Form implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Lob
-	@Column(columnDefinition = "MEDIUMBLOB")
-	private String image;
-	@ManyToOne
-	@JsonIgnore
-	private Observation observation;
+	private String titre; 
+	private String description;
+	
+	@Column(columnDefinition = "json")
+	private String fields;
 }

@@ -21,7 +21,6 @@ import io.swagger.annotations.Api;
 @RestController
 @RequestMapping("/Observation")
 @Api(tags = "Observation Controller")
-@CrossOrigin(origins = "*")
 public class ObservationController {
 	@Autowired
 	IObservationService observationService;

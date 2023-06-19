@@ -21,7 +21,6 @@ import io.swagger.annotations.Api;
 @RestController
 @RequestMapping("/PlanSondage")
 @Api(tags = "PlanSondage Controller")
-@CrossOrigin(origins = "*")
 public class PlanSondageController {
 	@Autowired
 	IPlanSondageService planSondageService;

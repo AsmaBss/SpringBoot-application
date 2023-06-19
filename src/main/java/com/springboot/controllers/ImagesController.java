@@ -29,7 +29,6 @@ import io.swagger.annotations.Api;
 @RestController
 @RequestMapping("/Images")
 @Api(tags = "Images Controller")
-@CrossOrigin(origins = "*")
 public class ImagesController {
 	
 	@Autowired

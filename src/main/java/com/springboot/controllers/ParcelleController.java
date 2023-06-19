@@ -24,7 +24,6 @@ import io.swagger.models.auth.In;
 @RestController
 @RequestMapping("/Parcelle")
 @Api(tags = "Parcelle Controller")
-@CrossOrigin(origins = "*")
 public class ParcelleController {
 	
 	@Autowired

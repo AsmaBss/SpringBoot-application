@@ -25,7 +25,6 @@ import io.swagger.annotations.Api;
 @RestController
 @RequestMapping("/Securisation")
 @Api(tags = "Securisation Controller")
-@CrossOrigin(origins = "*")
 public class SecurisationController {
 	@Autowired 
 	ISecurisationService securisationService;

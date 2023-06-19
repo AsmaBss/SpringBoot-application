@@ -23,7 +23,6 @@ import io.swagger.annotations.Api;
 @RestController
 @RequestMapping("/Position")
 @Api(tags = "Position Controller")
-@CrossOrigin(origins = "*")
 public class PositionController {
 	@Autowired
 	IPositionService positionService;

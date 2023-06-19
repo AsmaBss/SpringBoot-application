@@ -22,7 +22,6 @@ import io.swagger.annotations.Api;
 @RestController
 @RequestMapping("/Passe")
 @Api(tags = "Passe Controller")
-@CrossOrigin(origins = "*")
 public class PasseController {
 	@Autowired
 	IPasseService passeService;

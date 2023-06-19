@@ -25,7 +25,6 @@ import io.swagger.annotations.Api;
 @RestController
 @RequestMapping("/Prelevement")
 @Api(tags = "Prelevement Controller")
-@CrossOrigin(origins = "*")
 public class PrelevementController {
 	@Autowired
 	IPrelevementService prelevementService;
