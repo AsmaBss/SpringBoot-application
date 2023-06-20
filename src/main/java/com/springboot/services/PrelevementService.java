@@ -1,4 +1,4 @@
-package com.springboot.services;
+	package com.springboot.services;
 
 import java.util.List;
 
@@ -98,7 +98,7 @@ public class PrelevementService implements IPrelevementService{
 				img.setPrelevement(prelevement);
 				imagesRepository.save(img);
 			}
-			for(Passe passe : passes) {
+			for(Passe passe : passes) { 
 				passe.setPrelevement(prelevement); 
 				passeRepository.save(passe);
 			}

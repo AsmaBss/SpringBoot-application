@@ -10,5 +10,7 @@ import com.springboot.models.Observation;
 @Repository
 public interface ObservationRepository extends CrudRepository<Observation, Integer> {
 	List<Observation> findByParcelleId(Integer id);
+	
+	Observation findByLatitudeAndLongitude(String latitude, String longitude);
 
 }

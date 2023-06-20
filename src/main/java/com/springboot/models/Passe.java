@@ -44,5 +44,4 @@ public class Passe implements Serializable{
 	@ManyToOne//(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Prelevement prelevement;
-
 }

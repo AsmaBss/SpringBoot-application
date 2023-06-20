@@ -1,5 +1,7 @@
 package com.springboot.services;
 
+import java.util.HashSet;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -31,18 +33,21 @@ public class UserService implements IUserService {
 		adminUser.setFirstname("admin");
 		adminUser.setLastname("admin");
 		adminUser.setEmail("admin@gmail.com");
-		adminUser.setPassword(getEncoderPassword("admin"));
+		adminUser.setPassword(getEncoderPassword("adminadmin"));
 		adminUser.getRoles().add(adminRole);
 		userRepository.save(adminUser);		
 	}
 	
 	@Override
-	public void register(User user) {
-		Role userRole = roleRepository.findById(2).orElse(null);
-		user.getRoles().add(userRole);
+	public void register(User user, Integer idRole) {
+		Role userRole = roleRepository.findById(idRole).orElse(null);
+		if (user.getRoles() == null) {
+			  user.setRoles(new HashSet<>());
+			}
+			user.getRoles().add(userRole);
 		user.setPassword(getEncoderPassword(user.getPassword()));
 		userRepository.save(user);
-	}
+	}  
 	
 	public String getEncoderPassword(String password) {
 		return passwordEncoder.encode(password);

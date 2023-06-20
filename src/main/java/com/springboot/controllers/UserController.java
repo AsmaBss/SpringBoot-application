@@ -1,11 +1,10 @@
 package com.springboot.controllers;
 
-import javax.annotation.security.RolesAllowed;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,9 +20,9 @@ public class UserController {
 	@Autowired
 	IUserService userService;
 	
-	@PostMapping("/register")
-	void register(@RequestBody User user) {
-		userService.register(user);
+	@PostMapping("/register/{id}")
+	void register(@RequestBody User user, @PathVariable("id") Integer idRole) {
+		userService.register(user, idRole);
 	}
 	
 	@GetMapping("/forAdmin")
@@ -34,7 +33,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/forUser") 
-	@PreAuthorize("hasAuthority('USER')")
+	//@PreAuthorize("hasAuthority('USER')")
 	public String forUser() {
 		return "this for user";
 	}

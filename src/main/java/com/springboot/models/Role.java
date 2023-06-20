@@ -41,6 +41,6 @@ public class Role implements Serializable {
 	
 	@ManyToMany(mappedBy="roles", fetch = FetchType.EAGER)
 	@JsonIgnore
-	private Set<User> users = new HashSet<>();
+	private Set<User> users = new HashSet<>(); 
 
 }

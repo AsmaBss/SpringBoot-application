@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,16 +38,19 @@ public class ImagesController {
 	@GetMapping("/show/prelevement/{id}")
 	@ResponseBody
 	@Transactional(timeout = 120)
+	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN', 'SUPERVISOR'})")
 	List<ImagesPrelevements> retrieveImageByPrelevement(@PathVariable Integer id) {
 		return imagesService.retrieveImageByPrelevement(id);
 	}
 	
 	@PostMapping("/add/{id}")
+	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
 	void addImage(@RequestBody ImagesPrelevements i, @PathVariable Integer id) {
 		imagesService.addImage(i, id);
 	}
 	
 	@DeleteMapping("/delete/{id}")
+	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
 	void deleteImage(@PathVariable Integer id) {
 		imagesService.deleteImage(id);
 	}

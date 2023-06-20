@@ -23,10 +23,14 @@ public class RoleServie implements IRoleService {
 		r1.setType(TypeRole.ADMIN);
 		Role r2 = new Role();
 		r2.setId(2);
-		r2.setType(TypeRole.USER);
+		r2.setType(TypeRole.SUPERVISOR);
+		Role r3 = new Role();
+		r3.setId(3);
+		r3.setType(TypeRole.SIMPLE_USER);
 		roleRepo.saveAll(Arrays.asList(
-                r1,
-                r2)); 
+                r1, 
+                r2,   
+                r3)); 
 		
 	}
 

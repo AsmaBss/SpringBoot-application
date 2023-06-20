@@ -3,6 +3,7 @@ package com.springboot.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,12 +32,14 @@ public class ParcelleController {
 	
 	@GetMapping("/show")
 	@ResponseBody
+	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN','SUPERVISOR'})")
 	public List<Parcelle> retrieveAllParcelles(){
 		return parcelleService.retrieveAllParcelles();
 	}
 	
 	@GetMapping("/show/{id}")
 	@ResponseBody
+	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN','SUPERVISOR'})")
 	public Parcelle retrieveParcelle(@PathVariable Integer id) {
 		return parcelleService.retrieveParcelle(id);
 	}
@@ -54,6 +57,7 @@ public class ParcelleController {
 	}
 	
 	@PostMapping("/add")
+	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
 	public void addParcelle(@RequestParam("shpFile") MultipartFile shpFile, @RequestParam("shxFile") MultipartFile shxFile, @RequestParam("dbfFile") MultipartFile dbfFile, @RequestParam("prjFile") MultipartFile prjFile) throws Exception{
 		parcelleService.addParcelle(shpFile, shxFile, dbfFile, prjFile);
 	}
@@ -65,6 +69,7 @@ public class ParcelleController {
     } */
 	
 	@DeleteMapping("/delete/{id}")
+	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
 	void deleteParcelle(@PathVariable Integer id) {
 		parcelleService.deleteParcelle(id);
 	}

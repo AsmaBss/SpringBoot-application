@@ -3,6 +3,7 @@ package com.springboot.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,6 +33,7 @@ public class PrelevementController {
 	@GetMapping("/show/securisation/{id}")
 	@ResponseBody
 	@Transactional(timeout = 120)
+	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN','SUPERVISOR'})")
 	List<Prelevement> retrieveBySecurisation(@PathVariable Integer id) {
 		return prelevementService.retrieveBySecurisation(id);
 	}
@@ -39,6 +41,7 @@ public class PrelevementController {
 	@GetMapping("/show/{coord}")
 	@ResponseBody
 	@Transactional(timeout = 120)
+	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
 	Prelevement retrieveByPlanSondage(@PathVariable String coord) {
 		return prelevementService.retrieveByPlanSondage(coord);
 	}
@@ -46,6 +49,7 @@ public class PrelevementController {
 	@GetMapping("/show/sondage/{id}")
 	@ResponseBody
 	@Transactional(timeout = 120)
+	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN','SUPERVISOR'})")
 	Prelevement retrieveByPlanSondageId(@PathVariable Integer id) {
 		return prelevementService.retrieveByPlanSondageId(id);
 	}
@@ -53,6 +57,7 @@ public class PrelevementController {
 	@PostMapping("/add")
 	@ResponseBody
 	@Transactional(timeout = 120)
+	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
 	String add(@RequestBody PrelevementWithPasseAndImages prelevementWithPasseAndImages){
 		return prelevementService.addPrelevementWithPassesAdImages(prelevementWithPasseAndImages.getPrelevement(), prelevementWithPasseAndImages.getPasses(), prelevementWithPasseAndImages.getImages(), prelevementWithPasseAndImages.getPlanSondage(), prelevementWithPasseAndImages.getSecurisation());
 	}
@@ -60,6 +65,7 @@ public class PrelevementController {
 	@PutMapping("/update/{id}")
 	@ResponseBody
 	@Transactional(timeout = 120)
+	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
 	String updatePrelevementWithPassesAdImages(@RequestBody PrelevementWithImagesPasses prelevementWithPasseAndImages) {
 		return prelevementService.updatePrelevementWithPassesAdImages(prelevementWithPasseAndImages.getPrelevement(), prelevementWithPasseAndImages.getImages(), prelevementWithPasseAndImages.getPasses());
 	}
@@ -67,14 +73,15 @@ public class PrelevementController {
 	@DeleteMapping("/delete/{id}")
 	@ResponseBody  
 	@Transactional(timeout = 120)
+	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
 	void deletePrelevement(@PathVariable Integer id) {
 		prelevementService.deletePrelevement(id);
 	}
 	
 	@GetMapping("/count/{id}")
 	@ResponseBody
-
 	@Transactional(timeout = 120)
+	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
 	public int nbrBySecurisation(@PathVariable Integer id) {
 		return prelevementService.nbrBySecurisation(id);
 	}

@@ -3,6 +3,7 @@ package com.springboot.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,6 +33,7 @@ public class SecurisationController {
 	@GetMapping("/show")
 	@ResponseBody 
 	@Transactional(timeout = 120)
+	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN','SUPERVISOR'})")
 	List<Securisation> retrieveAllSecurisations(){
 		return securisationService.retrieveAllSecurisations();
 	}
@@ -39,22 +41,26 @@ public class SecurisationController {
 	@GetMapping("/show/{id}")
 	@ResponseBody 
 	@Transactional(timeout = 120)
+	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
 	Securisation retrieveSecurisation(@PathVariable Integer id) {
 		return securisationService.retrieveSecurisation(id);
 	}
 	
 	@PostMapping("/add")
 	@ResponseBody
+	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
 	Securisation addSecurisation(@RequestBody SecurisationParcelle securisationParcelle) {
 		return securisationService.addSecurisation(securisationParcelle.getSecurisation(), securisationParcelle.getParcelle());
 	}
 	
 	@DeleteMapping("/delete/{id}")
+	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
 	void deleteSecurisation(@PathVariable Integer id) {
 		securisationService.deleteSecurisation(id);
 	}
-	
-	@PutMapping("/update/{id}")
+	 
+	@PutMapping("/update/{id}") 
+	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
 	void updateSecurisation(@RequestBody Securisation securisation, @PathVariable Integer id) {
 		securisationService.updateSecurisation(securisation, id);
 	}
