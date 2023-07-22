@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -35,5 +36,9 @@ public class User implements Serializable{
 	@ManyToMany(fetch = FetchType.EAGER)//, fetch= FetchType.EAGER
 	//@JsonIgnore
 	private Set<Role> roles = new HashSet<>();
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JsonIgnore
+	private Set<Parcelle> parcelles = new HashSet<>(); 
 
 }

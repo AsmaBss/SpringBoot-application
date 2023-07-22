@@ -13,6 +13,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -30,22 +31,22 @@ public class JwtService implements UserDetailsService {
 	private JwtUtil jwtUtil;
 	@Autowired
 	private AuthenticationManager authenticationManager;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	public JwtResponse createJwtToken(JwtRequest jwtRequest) throws Exception {
 		String username = jwtRequest.getUsername();
 		String pasword = jwtRequest.getPassword();
-		
-			authenticate(username, pasword);
-			final UserDetails userDetails = loadUserByUsername(username);
-			String newGeneratedToken = jwtUtil.generateToken(userDetails);
-			User user = userRepo.findByEmail(username);
-			return new JwtResponse(user, newGeneratedToken);
-		
+		authenticate(username, pasword);
+		final UserDetails userDetails = loadUserByUsername(username);
+		String newGeneratedToken = jwtUtil.generateToken(userDetails);
+		User user = userRepo.findByEmail(username);
+		return new JwtResponse(user, newGeneratedToken);
 	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userRepo.findByEmail(username); 
+		User user = userRepo.findByEmail(username);
 		if (user != null) {
 			return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
 					getAuthorities(user));
@@ -57,7 +58,6 @@ public class JwtService implements UserDetailsService {
 	private Set getAuthorities(User user) {
 		Set authorities = new HashSet<>();
 		user.getRoles().forEach(role -> {
-			System.out.println(role.getType().name());
 			authorities.add(new SimpleGrantedAuthority(role.getType().name()));
 		});
 		return authorities;
@@ -65,11 +65,20 @@ public class JwtService implements UserDetailsService {
 
 	private void authenticate(String username, String password) throws Exception {
 		try {
+			UserDetails userDetails = loadUserByUsername(username);
+	        if (!passwordEncoder.matches(password, userDetails.getPassword())) {
+				System.out.println("Mot de passe incorrecte");
+	            throw new BadCredentialsException("Mot de passe incorrecte");
+	        }
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 		} catch (DisabledException e) {
-			throw new Exception("User is disabled");
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Utilisateur non autorisé", e);
 		} catch (BadCredentialsException e) {
-			throw new Exception("Bad credential from user");
+			System.out.println("Mot de passe incorrecte");
+			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Mot de passe incorrecte", e);
+		} catch (UsernameNotFoundException e) {
+			System.out.println("Email introuvable");
+			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Email introuvable", e);
 		}
 	}
 

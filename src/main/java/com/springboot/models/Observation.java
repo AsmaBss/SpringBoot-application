@@ -44,7 +44,7 @@ public class Observation implements Serializable{
 	private String latitude;
 	private String longitude;
 	
-	@OneToMany(mappedBy = "observation") 
+	@OneToMany(mappedBy = "observation", cascade = CascadeType.REMOVE) 
 	@JsonIgnore
 	private List<ImagesObservations> images;
 	

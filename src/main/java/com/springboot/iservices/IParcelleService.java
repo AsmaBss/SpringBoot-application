@@ -12,8 +12,9 @@ public interface IParcelleService {
 	public Parcelle retrieveParcelle(Integer id);
 	public Parcelle retrieveByFile(String file);
 	public Parcelle retrieveBySecurisation(Integer id);
+	public List<Parcelle> retriveByUserId(Integer id);
 	public void addParcelle(MultipartFile shpFile, MultipartFile shxFile, MultipartFile dbfFile, MultipartFile prjFile) throws Exception;
-	//public void addShapefile(MultipartFile file, MultipartFile fileee, MultipartFile file2, MultipartFile file222) throws Exception;
+	public void testAdd(MultipartFile shpFile, MultipartFile shxFile, MultipartFile dbfFile, MultipartFile prjFile) throws Exception;
 	public void deleteParcelle(Integer id);
 	public List<String> getCoordinates(Integer id);
 

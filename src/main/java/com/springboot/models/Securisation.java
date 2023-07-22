@@ -34,18 +34,18 @@ public class Securisation implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Id
+	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nom;
 	@Enumerated(EnumType.STRING)
 	private MunitionReference munitionReference;
 	private int cotePlateforme;
-	private int profondeurASecuriser;
+	private int profondeurASecuriser; 
 	private int coteASecuriser;
 	 
 	@OneToOne(fetch = FetchType.EAGER) 
-	@JsonIgnore
+	//@JsonIgnore
 	private Parcelle parcelle;
 	
 	@OneToMany(mappedBy = "securisation", cascade = CascadeType.REMOVE)//fetch = FetchType.LAZY, 

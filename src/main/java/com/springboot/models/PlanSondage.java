@@ -53,7 +53,6 @@ public class PlanSondage implements Serializable{
 	@JsonSerialize(using = GeometrySerializer.class)
 	private Geometry geometry; 
 
-	//@OneToOne(cascade = CascadeType.ALL)
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Parcelle parcelle;

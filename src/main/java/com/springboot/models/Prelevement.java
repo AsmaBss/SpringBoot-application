@@ -53,7 +53,7 @@ public class Prelevement implements Serializable{
 	private List<ImagesPrelevements> images;
 	
 	@OneToOne(fetch = FetchType.EAGER)
-	@JsonIgnore
+	//@JsonIgnore
 	private PlanSondage planSondage;
 	
 	@OneToMany(mappedBy = "prelevement", cascade = CascadeType.REMOVE)
@@ -61,7 +61,7 @@ public class Prelevement implements Serializable{
 	private List<Passe> passe; 
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JsonIgnore
+	//@JsonIgnore
 	private Securisation securisation;
 
 }

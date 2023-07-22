@@ -29,10 +29,15 @@ public class SecurisationService implements ISecurisationService{
 	}
 
 	@Override
+	public List<Securisation> retrieveByUser(Integer id) {
+		return securisationRepository.findByParcelleUsersId(id);
+	}
+
+	
+	@Override
 	public Securisation addSecurisation(Securisation s, Parcelle parcelle) {
 		s.setParcelle(parcelle);
-		Securisation securisation = new Securisation();
-		securisation = securisationRepository.save(s);
+		Securisation securisation = securisationRepository.save(s);
 		return securisation;
 	}
 	
@@ -54,5 +59,6 @@ public class SecurisationService implements ISecurisationService{
 	}
 
 	
+
 
 }

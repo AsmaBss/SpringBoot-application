@@ -4,7 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,6 +32,7 @@ public class ObservationController {
 	@GetMapping("/show")
 	@ResponseBody
 	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN', 'SUPERVISOR'})")
+	@Transactional(timeout = 120)
 	public List<Observation> retrieveAllObservations(){
 		return observationService.retrieveAllObservations();
 	}
@@ -38,6 +40,7 @@ public class ObservationController {
 	@GetMapping("/show/{id}")
 	@ResponseBody
 	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN', 'SUPERVISOR'})")
+	@Transactional(timeout = 120)
 	public Observation retrieveObservation(@PathVariable Integer id) {
 		return observationService.retrieveObservation(id);
 	}
@@ -45,6 +48,7 @@ public class ObservationController {
 	@GetMapping("/show/parcelle/{id}")
 	@ResponseBody
 	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN', 'SUPERVISOR'})")
+	@Transactional(timeout = 120)
 	public List<Observation> retrieveByParcelle(@PathVariable Integer id) {
 		return observationService.retrieveByParcelle(id);
 	}
@@ -52,19 +56,31 @@ public class ObservationController {
 	@GetMapping("/show/lat/{lat}/lng/{lng}") 
 	@ResponseBody
 	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
+	@Transactional(timeout = 120)
 	public Observation retrieveByLatLng(@PathVariable String lat, @PathVariable String lng) {
 		return observationService.retrieveByLatLng(lat, lng);
 	}
 	
 	@PostMapping("/add") 
 	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
+	@Transactional(timeout = 120)
 	public void addObservation(@RequestBody ObservationWithImagesByParcelle observationWithImages){
 		observationService.addObservation(observationWithImages.getObservation(), observationWithImages.getImages(), observationWithImages.getParcelle());
 	}
 	
 	@PutMapping("/update") 
 	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
+	@Transactional(timeout = 120)
 	public void updateObservation(@RequestBody ObservationWithImages observationWithImages){
 		observationService.updateObservation(observationWithImages.getObservation(), observationWithImages.getImages());
 	}
+	
+	@DeleteMapping("/delete/{id}")
+	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
+	@Transactional(timeout = 120)
+	public void deleteObservation(@PathVariable Integer id) {
+		observationService.deleteObservation(id);
+	}
+	
+	
 }

@@ -18,4 +18,9 @@ public class ImagesObservationService implements IImagesObservationService{
 	public List<ImagesObservations> retrieveByObservation(Integer id) {
 		return imagesObservationRepository.findByObservationId(id);
 	}
+
+	@Override
+	public void deleteImageObservation(Integer id) {
+		imagesObservationRepository.deleteById(id);
+	}
 }

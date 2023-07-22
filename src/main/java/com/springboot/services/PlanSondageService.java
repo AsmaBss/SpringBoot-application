@@ -123,7 +123,7 @@ public class PlanSondageService implements IPlanSondageService{
 						planSondages.add(planSondage);
 					}
 				}
-			}
+			} 
 		}
 		for (PlanSondage planSondage : planSondages) {
 			planSondageRepository.save(planSondage);

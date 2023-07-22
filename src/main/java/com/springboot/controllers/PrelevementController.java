@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,9 +32,17 @@ public class PrelevementController {
 	@GetMapping("/show/securisation/{id}")
 	@ResponseBody
 	@Transactional(timeout = 120)
-	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN','SUPERVISOR'})")
+	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
 	List<Prelevement> retrieveBySecurisation(@PathVariable Integer id) {
 		return prelevementService.retrieveBySecurisation(id);
+	}
+	
+	@GetMapping("/show/sondage/{id}")
+	@ResponseBody
+	@Transactional(timeout = 120)
+	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN','SUPERVISOR'})")
+	Prelevement retrieveByPlanSondageId(@PathVariable Integer id) {
+		return prelevementService.retrieveByPlanSondageId(id);
 	}
 	
 	@GetMapping("/show/{coord}")
@@ -46,12 +53,12 @@ public class PrelevementController {
 		return prelevementService.retrieveByPlanSondage(coord);
 	}
 	
-	@GetMapping("/show/sondage/{id}")
+	@GetMapping("/count/{id}")
 	@ResponseBody
 	@Transactional(timeout = 120)
-	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN','SUPERVISOR'})")
-	Prelevement retrieveByPlanSondageId(@PathVariable Integer id) {
-		return prelevementService.retrieveByPlanSondageId(id);
+	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
+	public int nbrBySecurisation(@PathVariable Integer id) {
+		return prelevementService.nbrBySecurisation(id);
 	}
 	
 	@PostMapping("/add")
@@ -76,14 +83,6 @@ public class PrelevementController {
 	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
 	void deletePrelevement(@PathVariable Integer id) {
 		prelevementService.deletePrelevement(id);
-	}
-	
-	@GetMapping("/count/{id}")
-	@ResponseBody
-	@Transactional(timeout = 120)
-	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
-	public int nbrBySecurisation(@PathVariable Integer id) {
-		return prelevementService.nbrBySecurisation(id);
 	}
 	
 }
