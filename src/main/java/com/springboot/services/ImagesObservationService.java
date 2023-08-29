@@ -15,6 +15,11 @@ public class ImagesObservationService implements IImagesObservationService{
 	ImagesObservationRepository imagesObservationRepository;
 
 	@Override
+	public List<ImagesObservations> retrieveAllImages() {
+		return (List<ImagesObservations>) imagesObservationRepository.findAll();
+	}
+	
+	@Override
 	public List<ImagesObservations> retrieveByObservation(Integer id) {
 		return imagesObservationRepository.findByObservationId(id);
 	}
@@ -23,4 +28,5 @@ public class ImagesObservationService implements IImagesObservationService{
 	public void deleteImageObservation(Integer id) {
 		imagesObservationRepository.deleteById(id);
 	}
+
 }

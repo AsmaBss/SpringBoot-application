@@ -21,6 +21,11 @@ public class ImagesService implements IImagesService {
 	PrelevementRepository prelevementRepository;
 
 	@Override
+	public List<ImagesPrelevements> retrieveAllImages() {
+		return (List<ImagesPrelevements>) imagesRepository.findAll();
+	}
+	
+	@Override
 	public List<ImagesPrelevements> retrieveImageByPrelevement(Integer id) {
 		return imagesRepository.findByPrelevementId(id);
 	}
@@ -36,5 +41,5 @@ public class ImagesService implements IImagesService {
 	public void deleteImage(Integer id) {
 		imagesRepository.deleteById(id);
 	}
-	
+
 }

@@ -38,30 +38,34 @@ public class Prelevement implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	private Integer id;
-	private int numero;
+	private String numero;  
 	@Enumerated(EnumType.STRING)
 	private MunitionReference munitionReference;
-	private int cotePlateforme;
-	private int profondeurASecuriser;
-	private int coteASecuriser;
+	private double cotePlateforme;
+	private double profondeurASecuriser;
+	private double coteASecuriser;
 	private String remarques;
 	@Enumerated(EnumType.STRING)
 	private Statut statut;
-	
+	 
 	@OneToMany(mappedBy = "prelevement", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	@JsonIgnore
-	private List<ImagesPrelevements> images;
+	private List<ImagesPrelevements> imagesPrelevements;
 	
 	@OneToOne(fetch = FetchType.EAGER)
-	//@JsonIgnore
+	//@JsonIgnore 
 	private PlanSondage planSondage;
 	
 	@OneToMany(mappedBy = "prelevement", cascade = CascadeType.REMOVE)
 	@JsonIgnore
 	private List<Passe> passe; 
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	/*@ManyToOne(fetch = FetchType.EAGER)
 	//@JsonIgnore
-	private Securisation securisation;
+	private Securisation securisation;*/ 
 
+	public Prelevement(int id) {
+        this.id = id;
+    }
+	
 }

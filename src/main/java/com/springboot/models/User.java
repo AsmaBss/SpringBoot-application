@@ -38,7 +38,7 @@ public class User implements Serializable{
 	private Set<Role> roles = new HashSet<>();
 	
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JsonIgnore
+	//@JsonIgnore
 	private Set<Parcelle> parcelles = new HashSet<>(); 
 
 }

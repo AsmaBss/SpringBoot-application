@@ -1,7 +1,5 @@
 package com.springboot.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,14 +27,6 @@ public class PrelevementController {
 	@Autowired
 	IPrelevementService prelevementService;
 	
-	@GetMapping("/show/securisation/{id}")
-	@ResponseBody
-	@Transactional(timeout = 120)
-	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
-	List<Prelevement> retrieveBySecurisation(@PathVariable Integer id) {
-		return prelevementService.retrieveBySecurisation(id);
-	}
-	
 	@GetMapping("/show/sondage/{id}")
 	@ResponseBody
 	@Transactional(timeout = 120)
@@ -45,28 +35,12 @@ public class PrelevementController {
 		return prelevementService.retrieveByPlanSondageId(id);
 	}
 	
-	@GetMapping("/show/{coord}")
-	@ResponseBody
-	@Transactional(timeout = 120)
-	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
-	Prelevement retrieveByPlanSondage(@PathVariable String coord) {
-		return prelevementService.retrieveByPlanSondage(coord);
-	}
-	
-	@GetMapping("/count/{id}")
-	@ResponseBody
-	@Transactional(timeout = 120)
-	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
-	public int nbrBySecurisation(@PathVariable Integer id) {
-		return prelevementService.nbrBySecurisation(id);
-	}
-	
 	@PostMapping("/add")
 	@ResponseBody
 	@Transactional(timeout = 120)
 	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
 	String add(@RequestBody PrelevementWithPasseAndImages prelevementWithPasseAndImages){
-		return prelevementService.addPrelevementWithPassesAdImages(prelevementWithPasseAndImages.getPrelevement(), prelevementWithPasseAndImages.getPasses(), prelevementWithPasseAndImages.getImages(), prelevementWithPasseAndImages.getPlanSondage(), prelevementWithPasseAndImages.getSecurisation());
+		return prelevementService.addPrelevementWithPassesAdImages(prelevementWithPasseAndImages.getPrelevement(), prelevementWithPasseAndImages.getPasses(), prelevementWithPasseAndImages.getImages(), prelevementWithPasseAndImages.getPlanSondage());
 	}
 	
 	@PutMapping("/update/{id}")
@@ -76,7 +50,7 @@ public class PrelevementController {
 	String updatePrelevementWithPassesAdImages(@RequestBody PrelevementWithImagesPasses prelevementWithPasseAndImages) {
 		return prelevementService.updatePrelevementWithPassesAdImages(prelevementWithPasseAndImages.getPrelevement(), prelevementWithPasseAndImages.getImages(), prelevementWithPasseAndImages.getPasses());
 	}
-	
+	 
 	@DeleteMapping("/delete/{id}")
 	@ResponseBody  
 	@Transactional(timeout = 120)

@@ -11,6 +11,6 @@ import com.springboot.models.PlanSondage;
 @Repository
 public interface PlanSondageRepository extends CrudRepository<PlanSondage, Integer>{
 	List<PlanSondage> findByParcelleId(Integer id);
-	PlanSondage findByGeometry(Geometry geometry);
 	int countByParcelleId(Integer id);
+	boolean existsByParcelleId(Integer id);
 }

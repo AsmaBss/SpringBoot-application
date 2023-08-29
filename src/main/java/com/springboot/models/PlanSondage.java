@@ -47,18 +47,23 @@ public class PlanSondage implements Serializable{
 	private String fichierDbf;
 	private String fichierPrj;
 	private String type;
-	private Integer baseRef;
-	@Column(name = "geometry", columnDefinition = "geometry")
+	private String baseRef;
+	private double latitude;
+	private double longitude;  
+	/*@Column(name = "geometry", columnDefinition = "geometry")
 	@JsonDeserialize(using = GeometryDeserializer.class)
 	@JsonSerialize(using = GeometrySerializer.class)
-	private Geometry geometry; 
+	private Geometry geometry;*/
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JsonIgnore
+	//@JsonIgnore
 	private Parcelle parcelle;
-	
-	@OneToOne(mappedBy = "planSondage")//, cascade = CascadeType.ALL)// , fetch = FetchType.EAGER na7itha
+	 
+	@OneToOne(mappedBy = "planSondage", cascade = CascadeType.REMOVE)//, cascade = CascadeType.ALL)// , fetch = FetchType.EAGER na7itha
 	@JsonIgnore
 	private Prelevement prelevement;
 
+	public PlanSondage(int id) {
+        this.id = id;
+    }
 }

@@ -28,27 +28,19 @@ public class SecurisationController {
 	@Autowired 
 	ISecurisationService securisationService; 
 	
-	@GetMapping("/show")
+	@GetMapping("/show/parcelle/{id}")
 	@ResponseBody 
 	@Transactional(timeout = 120)
 	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
-	List<Securisation> retrieveAllSecurisations(){
-		return securisationService.retrieveAllSecurisations();
-	}
-	
-	@GetMapping("/show/{id}")
-	@ResponseBody 
-	@Transactional(timeout = 120)
-	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
-	Securisation retrieveSecurisation(@PathVariable Integer id) {
-		return securisationService.retrieveSecurisation(id);
+	Securisation retrieveByParcelle(@PathVariable Integer id) {
+		return securisationService.retrieveByParcelle(id);
 	}
 	
 	@PostMapping("/add")
 	@ResponseBody
 	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
-	Securisation addSecurisation(@RequestBody SecurisationParcelle securisationParcelle) {
-		return securisationService.addSecurisation(securisationParcelle.getSecurisation(), securisationParcelle.getParcelle());
+	void addSecurisation(@RequestBody SecurisationParcelle securisationParcelle) {
+		securisationService.addSecurisation(securisationParcelle.getSecurisation(), securisationParcelle.getParcelle());
 	}
 	 
 	@PutMapping("/update/{id}") 
@@ -61,13 +53,6 @@ public class SecurisationController {
 	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
 	void deleteSecurisation(@PathVariable Integer id) {
 		securisationService.deleteSecurisation(id);
-	}
-	
-	@GetMapping("/show/user/{id}")
-	@ResponseBody 
-	@Transactional(timeout = 120)
-	List<Securisation> retrieveByUser(@PathVariable Integer id) {
-		return securisationService.retrieveByUser(id);
 	}
 
 }

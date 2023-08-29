@@ -40,16 +40,12 @@ public class Securisation implements Serializable{
 	private String nom;
 	@Enumerated(EnumType.STRING)
 	private MunitionReference munitionReference;
-	private int cotePlateforme;
-	private int profondeurASecuriser; 
-	private int coteASecuriser;
+	private double cotePlateforme;
+	private double profondeurASecuriser; 
+	private double coteASecuriser;
 	 
-	@OneToOne(fetch = FetchType.EAGER) 
+	@OneToOne(fetch = FetchType.EAGER)  
 	//@JsonIgnore
 	private Parcelle parcelle;
 	
-	@OneToMany(mappedBy = "securisation", cascade = CascadeType.REMOVE)//fetch = FetchType.LAZY, 
-	@JsonIgnore
-	private List<Prelevement> prelevement; 
-
 }

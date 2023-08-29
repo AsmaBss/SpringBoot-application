@@ -67,7 +67,6 @@ public class JwtService implements UserDetailsService {
 		try {
 			UserDetails userDetails = loadUserByUsername(username);
 	        if (!passwordEncoder.matches(password, userDetails.getPassword())) {
-				System.out.println("Mot de passe incorrecte");
 	            throw new BadCredentialsException("Mot de passe incorrecte");
 	        }
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
@@ -79,7 +78,7 @@ public class JwtService implements UserDetailsService {
 		} catch (UsernameNotFoundException e) {
 			System.out.println("Email introuvable");
 			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Email introuvable", e);
-		}
+		} 
 	}
 
 }

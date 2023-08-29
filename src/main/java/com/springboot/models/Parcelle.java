@@ -49,7 +49,7 @@ public class Parcelle implements Serializable{
 	private Integer id;
 	private String nom;
 	private String fichierShp;
-	private String fichierShx; 
+	private String fichierShx;
 	private String fichierDbf;
 	private String fichierPrj;
 	private String type;
@@ -62,7 +62,7 @@ public class Parcelle implements Serializable{
 	@JsonIgnore
 	private List<PlanSondage> planSondage;  
 	
-	@OneToOne(mappedBy = "parcelle", cascade = CascadeType.REMOVE)//, cascade = CascadeType.ALL
+	@OneToOne(mappedBy = "parcelle", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)//, cascade = CascadeType.ALL
 	@JsonIgnore
 	private Securisation securisation;
 	
@@ -73,4 +73,25 @@ public class Parcelle implements Serializable{
 	@ManyToMany(mappedBy="parcelles", fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Set<User> users = new HashSet<>(); 
+	
+	@Override
+	public boolean equals(Object obj) {
+	    if (this == obj)
+	        return true;
+	    if (obj == null)
+	        return false;
+	    if (getClass() != obj.getClass())
+	        return false;
+	    Parcelle other = (Parcelle) obj;
+	    if (id == null) {
+	        if (other.id != null)
+	            return false;
+	    } else if (!id.equals(other.id))
+	        return false;
+	    return true;
+	}
+	
+	public Parcelle(int id) {
+        this.id = id;
+    }
 }

@@ -42,13 +42,17 @@ public class Observation implements Serializable{
 	private String nom;
 	private String description;
 	private String latitude;
-	private String longitude;
+	private String longitude; 
 	
 	@OneToMany(mappedBy = "observation", cascade = CascadeType.REMOVE) 
 	@JsonIgnore
 	private List<ImagesObservations> images;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JsonIgnore
+	//@JsonIgnore
 	private Parcelle parcelle; 
+	
+	public Observation(int id) {
+        this.id = id;
+    }
 }

@@ -11,9 +11,7 @@ import com.springboot.models.Securisation;
 
 @Repository
 public interface PrelevementRepository extends CrudRepository<Prelevement, Integer>{
-	List<Prelevement> findBySecurisationId(Integer id);
 	Prelevement findByPlanSondage(PlanSondage ps);
-	int countBySecurisationId(Integer securisation);
 	Prelevement findByPlanSondageId(Integer id);
 	
 }

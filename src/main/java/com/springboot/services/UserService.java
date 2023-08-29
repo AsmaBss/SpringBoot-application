@@ -60,6 +60,10 @@ public class UserService implements IUserService {
 
 	@Override
 	public List<User> retrieveAllUsers() {
+		List<User> list =  (List<User>) userRepository.findAll();
+		for(User user : list) {
+			user.setPassword(null);
+		}
 		return (List<User>) userRepository.findAll();
 	}
 
@@ -87,7 +91,8 @@ public class UserService implements IUserService {
 		User user = userRepository.findById(id).orElse(null);
 		user.getParcelles().clear();
 		for (Parcelle parcelle : parcelles) {
-			user.getParcelles().add(parcelle); 
+			user.getParcelles().add(parcelle);  
+			//parcelle.getUsers().add(user);
 		}
 		userRepository.save(user);
 	}

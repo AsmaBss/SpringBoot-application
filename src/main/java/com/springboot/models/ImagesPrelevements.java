@@ -38,7 +38,7 @@ public class ImagesPrelevements implements Serializable{
 	@Column(columnDefinition = "MEDIUMBLOB")
 	private String image;
 	@ManyToOne//(cascade = CascadeType.ALL)
-	@JsonIgnore
+	//@JsonIgnore
 	private Prelevement prelevement;
 	/*@ManyToOne
 	@JsonIgnore

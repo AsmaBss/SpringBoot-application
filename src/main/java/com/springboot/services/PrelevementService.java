@@ -31,29 +31,8 @@ public class PrelevementService implements IPrelevementService{
 	PlanSondageRepository planSondageRepository;
 	
 	@Override
-	public List<Prelevement> retrieveBySecurisation(Integer id) {
-		return prelevementRepository.findBySecurisationId(id);
-	}
-	
-	@Override
-	public Prelevement retrieveByPlanSondage(String coord) {
-		PlanSondage ps = getPlanSondageByCoord(coord);
-		Prelevement p = prelevementRepository.findByPlanSondage(ps);
-		return p;
-	}
-	 
-	public PlanSondage getPlanSondageByCoord(String coord) {
-		List<PlanSondage> list = (List<PlanSondage>) planSondageRepository.findAll();
-		for(PlanSondage ps : list) {
-			Coordinate[] coords  = ps.getGeometry().getCoordinates();
-			for(Coordinate c : coords) {
-				if(c.toString().equals(coord)) {
-					// (7.570517551295185, 48.28103617889588)
-					return ps;
-				}
-			}
-		}
-		return null;
+	public List<Prelevement> retrieveAllPrelevements() {
+		return (List<Prelevement>) prelevementRepository.findAll();
 	}
 	
 	@Override
@@ -63,10 +42,9 @@ public class PrelevementService implements IPrelevementService{
 	}
 	
 	@Override
-	public String addPrelevementWithPassesAdImages(Prelevement prelevement, List<Passe> passes, List<ImagesPrelevements> images, PlanSondage plansondage, Securisation securisation) {
+	public String addPrelevementWithPassesAdImages(Prelevement prelevement, List<Passe> passes, List<ImagesPrelevements> images, PlanSondage plansondage) {
 		try {
 			prelevement.setPlanSondage(plansondage);
-			prelevement.setSecurisation(securisation);
 			Prelevement p = prelevementRepository.save(prelevement); 
 			for(ImagesPrelevements img : images) {
 				img.setPrelevement(prelevement);
@@ -75,10 +53,10 @@ public class PrelevementService implements IPrelevementService{
 			for(Passe passe : passes) {
 				passe.setPrelevement(prelevement); 
 				passeRepository.save(passe);
-			}
-		} catch (Exception e) {
+			} 
+		} catch (Exception e) { 
 			throw e;
-		}
+		} 
 		return null;
 	}
 	
@@ -110,13 +88,8 @@ public class PrelevementService implements IPrelevementService{
 	
 	@Override
 	public void deletePrelevement(Integer id) {
-		prelevementRepository.deleteById(id);
+		prelevementRepository.deleteById(id); 
 	}
 
-	@Override
-	public int nbrBySecurisation(Integer securisation) {
-		return prelevementRepository.countBySecurisationId(securisation);
-	}
-
-
+	
 }

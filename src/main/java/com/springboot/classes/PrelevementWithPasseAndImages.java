@@ -20,6 +20,5 @@ public class PrelevementWithPasseAndImages {
 	private List<Passe> passes;
 	private List<ImagesPrelevements> images;
 	private PlanSondage planSondage;
-	private Securisation securisation;
 
 }

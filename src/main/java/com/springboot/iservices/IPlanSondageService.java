@@ -8,10 +8,10 @@ import com.springboot.models.PlanSondage;
 
 public interface IPlanSondageService {
 	public List<PlanSondage> retrieveAllPlansSondage();
-	public PlanSondage retrievePlanSondage(Integer id);
+	//
 	public List<PlanSondage> retrieveByParcelle(Integer id);
-	public PlanSondage retriveByCoordinates(String coord);
 	public void addPlanSondage(MultipartFile shpFile, MultipartFile shxFile, MultipartFile dbfFile, MultipartFile prjFile, Integer p)throws Exception ; 
-	public List<String> getCoordinates();
+	public void testAdd(MultipartFile shpFile, MultipartFile shxFile, MultipartFile dbfFile, MultipartFile prjFile, Integer p)throws Exception ; 
 	public int nbrPlanSondage(Integer id);
+	public boolean existsByParcelleId(Integer id);
 }

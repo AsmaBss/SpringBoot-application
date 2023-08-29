@@ -19,6 +19,11 @@ public class PasseService implements IPasseService{
 	PrelevementRepository prelevementRepository;
 
 	@Override
+	public List<Passe> retrieveAllPasses() {
+		return (List<Passe>) passeRepository.findAll();
+	}
+
+	@Override
 	public List<Passe> retrieveByPrelevement(Integer id) {
 		return passeRepository.findByPrelevementId(id);
 	}
@@ -45,7 +50,6 @@ public class PasseService implements IPasseService{
 	public void deletePasse(Integer id) {
 		passeRepository.deleteById(id);
 	}
-
 
 	
 

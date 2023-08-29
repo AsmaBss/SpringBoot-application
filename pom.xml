@@ -72,6 +72,11 @@
     		<version>28.1</version>
 		</dependency>
 		<dependency>
+    		<groupId>org.geotools</groupId>
+    		<artifactId>gt-referencing</artifactId>
+    		<version>28.1</version>
+		</dependency>
+		<dependency>
     		<groupId>com.vividsolutions</groupId>
     		<artifactId>jts</artifactId>
 		    <version>1.13</version>

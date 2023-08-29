@@ -32,21 +32,13 @@ public class PlanSondageController {
 	@Transactional(timeout = 120)
 	public List<PlanSondage> retrieveByParcelle(@PathVariable Integer id) {
 		return planSondageService.retrieveByParcelle(id);
-	}
-	
-	@GetMapping("/show/coordinates/{coord}")
-	@ResponseBody
-	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
-	@Transactional(timeout = 120)
-	public PlanSondage retriveByCoordinates(@PathVariable String coord) {
-		return planSondageService.retriveByCoordinates(coord);
-	}
+	} 
 	
 	@PostMapping("/add/{id}")
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@Transactional(timeout = 120)
 	public void addPlanSondage(@RequestParam("shpFile") MultipartFile shpFile, @RequestParam("shxFile") MultipartFile shxFile, @RequestParam("dbfFile") MultipartFile dbfFile, @RequestParam("prjFile") MultipartFile prjFile, @PathVariable Integer id) throws Exception{
-		planSondageService.addPlanSondage(shpFile, shxFile, dbfFile, prjFile, id);
+		planSondageService.testAdd(shpFile, shxFile, dbfFile, prjFile, id);
 	}
 	
 	@GetMapping("/show/nbr/{id}")
@@ -56,5 +48,14 @@ public class PlanSondageController {
 	int nbrPlanSondage(@PathVariable Integer id) {
 		return planSondageService.nbrPlanSondage(id);
 	}
+	
+	@GetMapping("/exist/parcelle/{id}")
+	@ResponseBody
+	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN', 'SUPERVISOR'})")
+	@Transactional(timeout = 120)
+	boolean existsByParcelleId(@PathVariable Integer id) { 
+		return planSondageService.existsByParcelleId(id);
+	}
+	
 
 }

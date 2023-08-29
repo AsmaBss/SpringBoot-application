@@ -24,21 +24,14 @@ public class SecurisationService implements ISecurisationService{
 	}
 
 	@Override
-	public Securisation retrieveSecurisation(Integer id) {
-		return securisationRepository.findById(id).orElse(null);
+	public Securisation retrieveByParcelle(Integer id) {
+		return securisationRepository.findByParcelleId(id);
 	}
 
 	@Override
-	public List<Securisation> retrieveByUser(Integer id) {
-		return securisationRepository.findByParcelleUsersId(id);
-	}
-
-	
-	@Override
-	public Securisation addSecurisation(Securisation s, Parcelle parcelle) {
+	public void addSecurisation(Securisation s, Parcelle parcelle) {
 		s.setParcelle(parcelle);
-		Securisation securisation = securisationRepository.save(s);
-		return securisation;
+		securisationRepository.save(s);
 	}
 	
 	@Override

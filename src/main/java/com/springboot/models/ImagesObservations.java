@@ -1,7 +1,6 @@
 package com.springboot.models;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,11 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
-import org.locationtech.jts.geom.Geometry;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.springboot.config.GeometryDeserializer;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -33,6 +28,11 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class ImagesObservations implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -40,6 +40,6 @@ public class ImagesObservations implements Serializable{
 	@Column(columnDefinition = "MEDIUMBLOB")
 	private String image;
 	@ManyToOne
-	@JsonIgnore
+	//@JsonIgnore
 	private Observation observation;
 }

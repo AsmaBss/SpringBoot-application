@@ -37,11 +37,11 @@ public class Passe implements Serializable{
 	private Integer id;
 	@Enumerated(EnumType.STRING)
 	private MunitionReference munitionReference; 
-	private int profondeurSonde;
-	private int gradientMag;
-	private int profondeurSecurisee;
-	private int coteSecurisee;
+	private double profondeurSonde;
+	private double gradientMag;
+	private double profondeurSecurisee;
+	private double coteSecurisee;
 	@ManyToOne//(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonIgnore
+	//@JsonIgnore
 	private Prelevement prelevement;
 }

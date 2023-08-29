@@ -36,22 +36,6 @@ public class ParcelleController {
 		return parcelleService.retrieveAllParcelles();
 	}
 	
-	@GetMapping("/show/{id}")
-	@ResponseBody
-	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN','SUPERVISOR'})")
-	@Transactional(timeout = 120)
-	public Parcelle retrieveParcelle(@PathVariable Integer id) {
-		return parcelleService.retrieveParcelle(id);
-	}
-	
-	@GetMapping("/show/securisation/{id}") 
-	@ResponseBody
-	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
-	@Transactional(timeout = 120)
-	public Parcelle retrieveBySecurisation(@PathVariable Integer id) {
-		return parcelleService.retrieveBySecurisation(id);
-	}
-	
 	@GetMapping("/show/user/{id}")
 	@ResponseBody
 	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
@@ -59,14 +43,7 @@ public class ParcelleController {
 	List<Parcelle> retriveByUserId(@PathVariable Integer id) {
 		return parcelleService.retriveByUserId(id);
 	}
-	
-	@GetMapping("/show/coordinates/{id}")
-	@ResponseBody
-	@PreAuthorize("hasAnyAuthority({'SIMPLE_USER', 'ADMIN'})")
-	@Transactional(timeout = 120)
-	List<String> getCoordinates(@PathVariable Integer id){
-		return parcelleService.getCoordinates(id);
-	}
+
 	
 	@PostMapping("/add")
 	@PreAuthorize("hasAuthority('ADMIN')")
